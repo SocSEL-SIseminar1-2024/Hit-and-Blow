@@ -7,7 +7,7 @@
 
 ゲーム画面はこちらから見てください．
 
-[ゲーム画面]()
+[ゲーム画面](https://socsel-siseminar1-2024.github.io/Hit-and-Blow/)
 
 ## 📃仕様書
 [ここ](https://www.figma.com/file/aedhG4wlTaOTKxccKI9a6S/SIseminar-2024-Hit%26Blow?type=design&node-id=0-1&mode=design&t=DCxI8fYMzDXvkzbX-0)からみてください
@@ -26,7 +26,7 @@
 1.下のコマンドで，任意のディレクトリにダウンロード
 
 ```
-git clone url
+git clone https://github.com/SocSEL-SIseminar1-2024/Hit-and-Blow.git
 ```
 2. クローンしてきたファイルのうち，htmlファイルをchromeのブラウザで表示する(ドラック＆ドロップでできます！)
 3. 手元で編集した後に，更新を行う
