@@ -223,12 +223,8 @@ class HitAndBlowGame:
     def set_player_num(self):
         """プレイヤーの数字を設定する
         """
-        is_valid_input = False
         # 3桁の数字を入力するまでループ
-        while not is_valid_input:
-            self.player_num = prompt("3桁の数字を入力してください")
-            if self.player_num is None:
-                continue
+        self.player_num = prompt("3桁の数字を入力してください")
         your_num = document.getElementById('your-number')
         your_num.innerText = "Your Number : " + self.player_num
 
