@@ -229,8 +229,6 @@ class HitAndBlowGame:
             self.player_num = prompt("3桁の数字を入力してください")
             if self.player_num is None:
                 continue
-            else:
-                alert('3桁の半角数字を入力してください')
         your_num = document.getElementById('your-number')
         your_num.innerText = "Your Number : " + self.player_num
 
