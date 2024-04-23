@@ -52,7 +52,9 @@ class HitAndBlowGame:
         self.is_game_continue = True
         print(f"自分の数字: {self.player_num}")
         print(f"cpuの数字: {self.cpu_num}")
+        #game_startはここまで
 
+    
     def input_method(self,event):
         """
         フォームを入力するたびに走る関数
@@ -75,12 +77,6 @@ class HitAndBlowGame:
         new_row.insertCell(1).textContent = p_hit
         new_row.insertCell(2).textContent = p_blow
 
-        #プレイヤーが勝利したかどうかを判定
-        self.game_judge(p_hit)
-        if self.is_game_continue == False:
-            self.result.innerText = "You Lose"
-            self.disable_input_form()
-
         #CPUが考えている感じにするため、1秒待つ
         time.sleep(1)
 
@@ -96,15 +92,17 @@ class HitAndBlowGame:
         new_row.insertCell(1).textContent = c_hit
         new_row.insertCell(2).textContent = c_blow
 
-        #CPUが勝利したかどうかを判定
-        self.game_judge(c_hit)
+        self.game_judge(p_hit, c_hit)
         if self.is_game_continue == False:
-            self.result = document.getElementById('result')
-            if(self.result.innerText != "You Win!"):#プレイヤーが3Hitしていたらドロー
-                self.result.innerText = "Draw!"
-            elif (self.result.innerText == ""):#プレイヤーが3Hitしていない場合、CPUの勝ち
-                self.result.innerText = "You Lose!"
             self.disable_input_form()#これ以上入力させないために、フォームを無効にする
+            self.result = document.getElementById('result')
+            if p_hit * c_hit == 9:
+                self.result.innerText = "Draw!"
+            elif p_hit == 3:
+                self.result.innerText = "You WIN!"
+            else:
+                self.result.innerText = "You LOSE..."
+        #input_methodはここまで
 
     def cpu_input(self):
         """ランダムに3桁の数字を返す
@@ -116,6 +114,8 @@ class HitAndBlowGame:
             val += str(random.randint(0, 9))
         return val
 
+    
+    #ヒットの数とブローの数を返り値として渡す
     def HB_judge(self, input_num):
         """入力した数字のHとBを返す
 
@@ -143,10 +143,10 @@ class HitAndBlowGame:
 
         return hit, blow
     
-    def game_judge(self, hit):
+    def game_judge(self, p_hit, c_hit):
         """ゲームが終了したかどうかの判定
         """
-        if hit == 3:
+        if p_hit == 3 | c_hit == 3:
             self.is_game_continue = False
         self.turn += 1
 
