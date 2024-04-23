@@ -78,7 +78,7 @@ class HitAndBlowGame:
         #プレイヤーが勝利したかどうかを判定
         self.game_judge(p_hit)
         if self.is_game_continue == False:
-            self.result.innerText = "You Lose"
+            self.result.innerText = self.player_num + "You Lose" + self.cpu_num
             self.disable_input_form()
 
         #CPUが考えている感じにするため、1秒待つ
@@ -101,9 +101,9 @@ class HitAndBlowGame:
         if self.is_game_continue == False:
             self.result = document.getElementById('result')
             if(self.result.innerText != "You Win!"):#プレイヤーが3Hitしていたらドロー
-                self.result.innerText = "Draw!"
+                self.result.innerText = self.player_num + "Draw!" + self.cpu_num
             elif (self.result.innerText == ""):#プレイヤーが3Hitしていない場合、CPUの勝ち
-                self.result.innerText = "You Lose!"
+                self.result.innerText = self.player_num + "You Lose" + self.cpu_num
             self.disable_input_form()#これ以上入力させないために、フォームを無効にする
 
     def cpu_input(self):
@@ -265,9 +265,9 @@ class HitAndBlowGame:
         if self.is_game_continue == False:
             self.result = document.getElementById('result')
             if(self.result.innerText != "You Win!"):#プレイヤーが3Hitしていたらドロー
-                self.result.innerText = "Draw!"
+                self.result.innerText = self.player_num + "Draw!" + self.cpu_num
             elif (self.result.innerText == ""):#プレイヤーが3Hitしていない場合、CPUの勝ち
-                self.result.innerText = "You Lose!"
+                self.result.innerText = self.player_num + "You Lose" + self.cpu_num
             self.disable_input_form()#これ以上入力させないために、フォームを無効にする
     
     def shot(self,event=None):
@@ -303,9 +303,9 @@ class HitAndBlowGame:
         if self.is_game_continue == False:
             self.result = document.getElementById('result')
             if(self.result.innerText != "You Win!"):#プレイヤーが3Hitしていたらドロー
-                self.result.innerText = "Draw!"
+                self.result.innerText = self.player_num + "Draw!" + self.cpu_num
             elif (self.result.innerText == ""):#プレイヤーが3Hitしていない場合、CPUの勝ち
-                self.result.innerText = "You Lose!"
+                self.result.innerText = self.player_num + "You Lose" + self.cpu_num
             self.disable_input_form()#これ以上入力させないために、フォームを無効にする
     
     def highLow(self,event=None):
@@ -342,7 +342,7 @@ class HitAndBlowGame:
         if self.is_game_continue == False:
             self.result = document.getElementById('result')
             if(self.result.innerText != "You Win!"):#プレイヤーが3Hitしていたらドロー
-                self.result.innerText = "Draw!"
+                self.result.innerText = self.player_num + "Draw!" + self.cpu_num
             elif (self.result.innerText == ""):#プレイヤーが3Hitしていない場合、CPUの勝ち
-                self.result.innerText = "You Lose!"
+                self.result.innerText = self.player_num + "You Lose" + self.cpu_num
             self.disable_input_form()#これ以上入力させないために、フォームを無効にする
