@@ -22,6 +22,7 @@ class HitAndBlowGame:
 
         #HTMLの要素を取得
         self.player_table = document.getElementById('player-table')
+        self.cpu_table = document.getElementById('cpu-table')
         self.a = document.getElementById('cpu-table')
         self.input_form = document.getElementById('inputForm')
         self.result = document.getElementById('result')
