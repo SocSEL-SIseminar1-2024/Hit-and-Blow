@@ -159,9 +159,12 @@ class HitAndBlowGame:
             split_num (list): 正解を1文字ごとにリストに格納したもの
             result (list): 結果を格納するリスト
         """
-        for i in range(3):
-            if split_num[i] == split_i_num[i]:
-                result[i] = (HitAndBlowGame.HitBlowResult.HIT)
+        hit = 0
+        split_i_num = [int(num) for num in str(input_num)]
+        split_p_num = [int(num) for num in str(player_num)]
+        result = [HitAndBlowGame.HitBlowResult.NONE, HitAndBlowGame.HitBlowResult.NONE, HitAndBlowGame.HitBlowResult.NONE]
+        # hit calculation logic
+        return hit, result
     
     def blow(self, split_i_num, split_num, result):
         """ブローしているかの判定
@@ -171,17 +174,28 @@ class HitAndBlowGame:
             split_num (list): 正解を1文字ごとにリストに格納したもの
             result (list): 結果を格納するリスト
         """
-        used_indices = []
-        for i in range(3):
-            if result[i] == HitAndBlowGame.HitBlowResult.HIT:
-                used_indices.append(i) 
-                continue
-            for j in range(3):
-                if j in used_indices:
-                    continue 
-                if split_num[i] == split_i_num[j]:
-                    result[i] = HitAndBlowGame.HitBlowResult.BLOW
-                    used_indices.append(j)
+        def blow(self, input_num, player_num):
+            blow = 0
+            split_i_num = [int(num) for num in str(input_num)]
+            split_p_num = [int(num) for num in str(player_num)]
+            result = [HitAndBlowGame.HitBlowResult.NONE, HitAndBlowGame.HitBlowResult.NONE, HitAndBlowGame.HitBlowResult.NONE]
+            # blow calculation logic
+            return blow, result
+    
+    def process_result(self, result):
+        """結果を処理する
+        
+        Args:
+            result (list): 結果を格納するリスト
+        """
+        hit = 0
+        blow = 0
+        for re in result:
+            if re == HitAndBlowGame.HitBlowResult.HIT:
+                blow += 1
+            if re == HitAndBlowGame.HitBlowResult.BLOW:
+                hit += 1
+        return hit, blow
 
     def clear_table(self):
         """テーブルをクリアする
