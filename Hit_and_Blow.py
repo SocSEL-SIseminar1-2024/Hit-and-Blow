@@ -36,6 +36,19 @@ class HitAndBlowGame:
         self.shuffle_button.addEventListener('click', create_proxy(self.shuffle))
         self.shot_button.addEventListener('click', create_proxy(self.shot))
         self.highLow_button.addEventListener('click', create_proxy(self.highLow))
+    
+    def is_valid_input(self, input_num):
+        # 入力が3桁であることを確認
+        if len(str(input_num)) != 3:
+            return False
+
+        # すべての数字が異なることを確認
+        digits = [digit for digit in str(input_num)]
+        if len(digits) != len(set(digits)):
+            return False
+
+        return True
+    
 
     def game_start(self, event=None):
         """ゲームをスタートする時に呼び出し
@@ -62,7 +75,16 @@ class HitAndBlowGame:
         first_digit = int(document.getElementById('first-digit').value)
         second_digit = int(document.getElementById('second-digit').value)
         third_digit = int(document.getElementById('third-digit').value)
-        player_input = first_digit * 100 + second_digit * 10 + third_digit
+        # プレイヤーの入力を受け取る
+        player_input = self.player_input()
+        while not self.is_valid_input(player_input):
+            print("Invalid input. Please enter a 3-digit number with all different digits.")
+            player_input = self.player_input()
+
+        # CPUの入力を受け取る
+        cpu_input = self.cpu_input()
+        while not self.is_valid_input(cpu_input):
+            cpu_input = self.cpu_input()
 
         self.clear_input_form()
 
