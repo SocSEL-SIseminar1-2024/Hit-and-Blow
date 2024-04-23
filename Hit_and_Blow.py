@@ -137,9 +137,9 @@ class HitAndBlowGame:
 
         for re in result:
             if re == HitAndBlowGame.HitBlowResult.HIT:
-                blow += 1
-            if re == HitAndBlowGame.HitBlowResult.BLOW:
                 hit += 1
+            if re == HitAndBlowGame.HitBlowResult.BLOW:
+                blow += 1
 
         return hit, blow
     
