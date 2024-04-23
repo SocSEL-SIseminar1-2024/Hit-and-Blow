@@ -78,7 +78,7 @@ class HitAndBlowGame:
         #プレイヤーが勝利したかどうかを判定
         self.game_judge(p_hit)
         if self.is_game_continue == False:
-            self.result.innerText = "You Lose"
+            self.result.innerText = "You Win"
             self.disable_input_form()
 
         #CPUが考えている感じにするため、1秒待つ
@@ -100,8 +100,9 @@ class HitAndBlowGame:
         self.game_judge(c_hit)
         if self.is_game_continue == False:
             self.result = document.getElementById('result')
-            if(self.result.innerText != "You Win!"):#プレイヤーが3Hitしていたらドロー
-                self.result.innerText = "Draw!"
+            if(self.result.innerText == "You Win!"):#プレイヤーが3Hitしていたらドロー
+                if(c_hit==3)
+                    self.result.innerText = "Draw!"
             elif (self.result.innerText == ""):#プレイヤーが3Hitしていない場合、CPUの勝ち
                 self.result.innerText = "You Lose!"
             self.disable_input_form()#これ以上入力させないために、フォームを無効にする
