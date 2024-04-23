@@ -38,12 +38,20 @@ class HitAndBlowGame:
         self.highLow_button.addEventListener('click', create_proxy(self.highLow))
     
     def is_valid_input(self, input_num):
+        # 入力が文字列であることを確認
+        if not isinstance(input_num, str):
+            return False
+
+        # 入力が半角であることを確認
+        if input_num != input_num.encode('ascii', 'ignore').decode('ascii'):
+            return False
+
         # 入力が3桁であることを確認
-        if len(str(input_num)) != 3:
+        if len(input_num) != 3:
             return False
 
         # すべての数字が異なることを確認
-        digits = [digit for digit in str(input_num)]
+        digits = [digit for digit in input_num]
         if len(digits) != len(set(digits)):
             return False
 
@@ -78,9 +86,9 @@ class HitAndBlowGame:
         # プレイヤーの入力を受け取る
         player_input = self.player_input()
         while not self.is_valid_input(player_input):
-            print("Invalid input. Please enter a 3-digit number with all different digits.")
+            print("Invalid input. Please enter a 3-digit number with all different digits in half-width characters.")
             player_input = self.player_input()
-
+        
         # CPUの入力を受け取る
         cpu_input = self.cpu_input()
         while not self.is_valid_input(cpu_input):
