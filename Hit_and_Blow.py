@@ -107,13 +107,13 @@ class HitAndBlowGame:
             self.disable_input_form()#これ以上入力させないために、フォームを無効にする
 
     def cpu_input(self):
-        """ランダムに3桁の数字を返す
         """
-        val = ""
-        
+        数字を数え上げる
+         """
         #最初が0にならないようにする
-        for _ in range(3):
-            val += str(random.randint(0, 9))
+        val = 99
+        val += self.turn//2
+        val = str(val)
         return val
 
     def HB_judge(self, input_num):
