@@ -34,5 +34,9 @@ git clone https://github.com/SocSEL-SIseminar1-2024/Hit-and-Blow.git
 ```
 python3 -m http.server                          
 ```
+もしくは
+```
+python -m http.server                          
+```
 5. http://localhost:8000/
 にアクセスすると確認できます！
