@@ -3,6 +3,17 @@ h3 {
     text-align: center;
 }
 
+.header {
+  background-color: #f1f1f1;
+  text-align: center;
+  margin: 0;
+  position: fixed; /* ウィンドウを基準に画面に固定 */
+  top: 0; /* 上下の固定位置を上から0pxにする */
+  left: 0; /* 左右の固定位置を左から0pxにする */
+  width: 100%; /* 横幅を100%にする */
+  z-index: 100; /* 他の要素より手前に表示 */
+}
+
 .btn-border {
     font-size: larger;
     border-radius: 10px;
