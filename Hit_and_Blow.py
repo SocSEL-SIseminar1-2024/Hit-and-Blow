@@ -226,6 +226,10 @@ class HitAndBlowGame:
         # 3桁の数字を入力するまでループ
         self.player_num = prompt("3桁の数字を入力してください")
         your_num = document.getElementById('your-number')
+        #3文字以上だった場合ループさせる
+        while(len(self.player_num)!=3):
+            self.player_num = prompt("3桁ではない数字が入力されました 3桁でお願いします")  
+        your_num.innerText = "Your Number : " + self.player_num
         your_num.innerText = "Your Number : " + self.player_num
 
     def shuffle(self,event=None):
