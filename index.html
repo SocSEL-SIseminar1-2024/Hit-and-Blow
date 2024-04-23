@@ -44,6 +44,27 @@
         <input type="text" id="third-digit" maxlength="1" class="digit-box" required>
         <input class="btn btn-border" type="submit" value="  決定  ">
     </form>
+
+    <script>
+        window.onload = function() {
+            var firstDigit = document.getElementById('first-digit');
+            var secondDigit = document.getElementById('second-digit');
+            var thirdDigit = document.getElementById('third-digit');
+        
+            firstDigit.addEventListener('keyup', function() {
+                if (firstDigit.value.length == firstDigit.maxLength) {
+                    secondDigit.focus();
+                }
+            });
+        
+            secondDigit.addEventListener('keyup', function() {
+                if (secondDigit.value.length == secondDigit.maxLength) {
+                    thirdDigit.focus();
+                }
+            });
+        };
+    </script>
+
     <div class ="itemArea">
         <h2>Item : </h2>
         <button class="btn btn-border" id="shuffleBtn">Shuffle</button>
@@ -73,3 +94,4 @@
 </body>
 
 </html>
+
