@@ -111,7 +111,7 @@ class HitAndBlowGame:
         数字を数え上げる
          """
         #最初が0にならないようにする
-        val = 100
+        val = 99
         val += self.turn//2
         val = str(val)
         return val
