@@ -218,17 +218,20 @@ class HitAndBlowGame:
         while judge_input_loop:
             self.player_num = prompt("3桁の数字を入力して下さい")
 
-            int_value = int(self.player_num) #整数であるか確認
-            if 100 <= int_value & int_value < 1000: #3桁か確認(0から始まる場合も弾く)
-                digit1 = int(int_value / 100)  #1桁目
-                digit2 = int((int_value / 10)) % 10  #2桁目
-                digit3 = int_value % 10  #3桁目
-                if digit1 == digit2 or digit2 == digit3 or digit3 == digit1:
-                    alert("重複する数が含まれないようにしてください")
-                else:
-                    judge_input_loop = False  #3桁の整数且つ、重複する数が含まれない時(ループから外れる)
+            if self.player_num == "":
+                alert("入力を行ってください")
             else:
-                alert("3桁の整数を入力してください")  #3桁ではない場合   
+                int_value = int(self.player_num) #整数であるか確認
+                if 100 <= int_value & int_value < 1000: #3桁か確認(0から始まる場合も弾く)
+                    digit1 = int(int_value / 100)  #1桁目
+                    digit2 = int((int_value / 10)) % 10  #2桁目
+                    digit3 = int_value % 10  #3桁目
+                    if digit1 == digit2 or digit2 == digit3 or digit3 == digit1:
+                        alert("重複する数が含まれないようにしてください")
+                    else:
+                        judge_input_loop = False  #3桁の整数且つ、重複する数が含まれない時(ループから外れる)
+                else:
+                    alert("3桁の整数を入力してください")  #3桁ではない場合   
         
         your_num = document.getElementById('your-number')
         your_num.innerText = "Your Number : " + self.player_num
