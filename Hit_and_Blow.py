@@ -212,10 +212,10 @@ class HitAndBlowGame:
         """プレイヤーの数字を設定する
         """
         #ループに使用する変数
-        tmp_num = 0
+        judge_input_loop = True
 
         # 3桁の数字を入力するまでループ
-        while tmp_num == 0:
+        while judge_input_loop:
             self.player_num = prompt("3桁の数字を入力して下さい")
 
             int_value = int(self.player_num) #整数であるか確認
@@ -226,7 +226,7 @@ class HitAndBlowGame:
                 if digit1 == digit2 or digit2 == digit3 or digit3 == digit1:
                     alert("重複する数が含まれないようにしてください")
                 else:
-                    tmp_num = 1  #3桁の整数且つ、重複する数が含まれない時(ループから外れる)
+                    judge_input_loop = False  #3桁の整数且つ、重複する数が含まれない時(ループから外れる)
             else:
                 alert("3桁の整数を入力してください")  #3桁ではない場合   
         
