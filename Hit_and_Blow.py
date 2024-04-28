@@ -44,29 +44,32 @@ class HitAndBlowGame:
             event.preventDefault() 
         self.clear_table()
         self.enable_input_form()
-        self.clear_input_form()
+        self.clear_input_form()  #諸々の初期化
         self.set_player_num()
         self.result.innerText = ""
         self.turn = 1
-        self.cpu_num = self.cpu_input()
+        self.cpu_num = self.cpu_input()  #cpu_input()は後々も使う
         self.is_game_continue = True
         print(f"自分の数字: {self.player_num}")
         print(f"cpuの数字: {self.cpu_num}")
+        #game_startはここまで
 
+    
     def input_method(self,event):
         """
         フォームを入力するたびに走る関数
         """
         event.preventDefault()
+
         #入力を受け取る
         first_digit = int(document.getElementById('first-digit').value)
         second_digit = int(document.getElementById('second-digit').value)
         third_digit = int(document.getElementById('third-digit').value)
         player_input = first_digit * 100 + second_digit * 10 + third_digit
 
-        self.clear_input_form()
+        self.clear_input_form()  #次の入力のためにフィールドを空にする
 
-        #プレイヤーが入力した数字のHit数とBLow数を判定
+        #プレイヤーが入力した数字のHit数とBLow数を判定(修正点)
         p_hit, p_blow = self.HB_judge(player_input)
 
         #プレイヤーの入力とHit数とBLow数をテーブルに追加
@@ -75,11 +78,9 @@ class HitAndBlowGame:
         new_row.insertCell(1).textContent = p_hit
         new_row.insertCell(2).textContent = p_blow
 
-        #プレイヤーが勝利したかどうかを判定
-        self.game_judge(p_hit)
-        if self.is_game_continue == False:
-            self.result.innerText = "You Lose"
-            self.disable_input_form()
+        """
+        ここまではプレイヤー側についての処理
+        """
 
         #CPUが考えている感じにするため、1秒待つ
         time.sleep(1)
@@ -96,15 +97,18 @@ class HitAndBlowGame:
         new_row.insertCell(1).textContent = c_hit
         new_row.insertCell(2).textContent = c_blow
 
-        #CPUが勝利したかどうかを判定
-        self.game_judge(c_hit)
+        self.game_judge(p_hit, c_hit)
         if self.is_game_continue == False:
-            self.result = document.getElementById('result')
-            if(self.result.innerText != "You Win!"):#プレイヤーが3Hitしていたらドロー
-                self.result.innerText = "Draw!"
-            elif (self.result.innerText == ""):#プレイヤーが3Hitしていない場合、CPUの勝ち
-                self.result.innerText = "You Lose!"
             self.disable_input_form()#これ以上入力させないために、フォームを無効にする
+            self.result = document.getElementById('result')
+            if p_hit * c_hit == 9:
+                self.result.innerText = "Draw!"
+            elif p_hit == 3:
+                self.result.innerText = "You WIN!"
+            else:
+                self.result.innerText = "You LOSE..."
+    #input_methodはここまで
+                
 
     def cpu_input(self):
         """ランダムに3桁の数字を返す
@@ -116,40 +120,55 @@ class HitAndBlowGame:
             val += str(random.randint(0, 9))
         return val
 
+    
+    #ヒットの数とブローの数を返り値として渡す
     def HB_judge(self, input_num):
         """入力した数字のHとBを返す
 
         Args:
-            input_num (num): 入力した数値
+            input_num (num): 引数として渡された数値
         """
         hit = 0
         blow = 0
         split_i_num = [int(num) for num in str(input_num)]
-        result = [HitAndBlowGame.HitBlowResult.NONE, HitAndBlowGame.HitBlowResult.NONE, HitAndBlowGame.HitBlowResult.NONE]
+        split_p_num = [int(num) for num in str(self.player_num)]
+        split_c_num = [int(num) for num in str(self.cpu_num)]
+
         if self.turn % 2 == 0:
-            split_p_num = [int(num) for num in str(self.player_num)]
-            self.hit(split_i_num, split_p_num, result)
-            self.blow(split_i_num, split_p_num, result)
+            hit, blow = self.count_HitandBlow(split_i_num, split_p_num)
         else:
-            split_c_num = [int(num) for num in str(self.cpu_num)]
-            self.hit(split_i_num, split_c_num, result)
-            self.blow(split_i_num, split_c_num, result)
-
-        for re in result:
-            if re == HitAndBlowGame.HitBlowResult.HIT:
-                blow += 1
-            if re == HitAndBlowGame.HitBlowResult.BLOW:
-                hit += 1
-
+            hit, blow = self.count_HitandBlow(split_i_num, split_c_num)
+        
+        self.turn += 1
         return hit, blow
     
-    def game_judge(self, hit):
+    def game_judge(self, p_hit, c_hit):
         """ゲームが終了したかどうかの判定
         """
-        if hit == 3:
+        if p_hit == 3 | c_hit == 3:
             self.is_game_continue = False
-        self.turn += 1
+        #self.turn += 1
 
+    def count_HitandBlow(self,split_i_num, split_num):
+        """
+        ヒットとブローの数を数える
+        """
+        num_hit = 0
+        num_blow = 0
+
+        for i in range(3):
+            if(split_num[i] == split_i_num[i]):
+                num_hit += 1
+        
+        for i in range(3):
+            for j in range(3):
+                if(split_num[i] == split_i_num[j]):
+                    num_blow += 1
+        
+        num_blow -= num_hit
+
+        return num_hit, num_blow
+    
 
     def hit(self, split_i_num, split_num, result):
         """ヒットしているかの判定
@@ -159,30 +178,12 @@ class HitAndBlowGame:
             split_num (list): 正解を1文字ごとにリストに格納したもの
             result (list): 結果を格納するリスト
         """
+        
         for i in range(3):
             if split_num[i] == split_i_num[i]:
                 result[i] = (HitAndBlowGame.HitBlowResult.HIT)
     
-    def blow(self, split_i_num, split_num, result):
-        """ブローしているかの判定
-
-        Args:
-            split_i_num (list): 入力した数字を1文字ごとにリストに格納したもの
-            split_num (list): 正解を1文字ごとにリストに格納したもの
-            result (list): 結果を格納するリスト
-        """
-        used_indices = []
-        for i in range(3):
-            if result[i] == HitAndBlowGame.HitBlowResult.HIT:
-                used_indices.append(i) 
-                continue
-            for j in range(3):
-                if j in used_indices:
-                    continue 
-                if split_num[i] == split_i_num[j]:
-                    result[i] = HitAndBlowGame.HitBlowResult.BLOW
-                    used_indices.append(j)
-
+    
     def clear_table(self):
         """テーブルをクリアする
         """
@@ -219,17 +220,15 @@ class HitAndBlowGame:
         # Disable each input element in the form
         for element in input_form.elements:
             element.disabled = False
-    
+        
     def set_player_num(self):
-        """プレイヤーの数字を設定する
-        """
-        # 3桁の数字を入力するまでループ
-        self.player_num = prompt("3桁の数字を入力してください")
+        player_input = prompt("3桁の数字を入力して")
         your_num = document.getElementById('your-number')
         your_num.innerText = "Your Number : " + self.player_num
 
     def shuffle(self,event=None):
-        """数字をシャッフルする
+        """
+        数字をシャッフルする
         """
         num_list = list(str(self.player_num))
         random.shuffle(num_list)
