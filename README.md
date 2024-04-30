@@ -1,5 +1,8 @@
 # Hit-and-Blow
 
+## 想定していた回答を見たい人向け
+https://github.com/Taiki-sub/Hit-and-Blow
+
 ## 🔢ゲーム概要
 プレイヤー同士でお互いの3桁の数字を当てるゲームです．
 
@@ -40,3 +43,4 @@ python -m http.server
 ```
 5. http://localhost:8000/
 にアクセスすると確認できます！
+
