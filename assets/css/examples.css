@@ -8,12 +8,15 @@ h3 {
     border-radius: 10px;
     color: white;
     background: black;
+    transiton: 0.5s;
 }
 
 .btn-border:hover {
     border-radius: 10px;
     color: black;
     background: white;
+    box-shadow: 0px 1px 20px rgba(154, 43, 65, 0.9);
+    transform: translateY(-4px);
 }
 
 .digit-box {
