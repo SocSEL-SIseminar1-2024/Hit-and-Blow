@@ -37,6 +37,7 @@ class HitAndBlowGame:
         self.shot_button.addEventListener('click', create_proxy(self.shot))
         self.highLow_button.addEventListener('click', create_proxy(self.highLow))
 
+
     def game_start(self, event=None):
         """ゲームをスタートする時に呼び出し
         """
@@ -57,9 +58,16 @@ class HitAndBlowGame:
         """
         フォームを入力するたびに走る関数
         """
+
         event.preventDefault()
-        #入力を受け取る
+         #入力を受け取る
         first_digit = int(document.getElementById('first-digit').value)
+        #最初の数字が0かどうかチェック
+        if first_digit == 0:
+            alert("最初の数字は0以外にしてください")
+            self.clear_input_form()
+            return
+        
         second_digit = int(document.getElementById('second-digit').value)
         third_digit = int(document.getElementById('third-digit').value)
         player_input = first_digit * 100 + second_digit * 10 + third_digit
